@@ -82,7 +82,7 @@ function UKMnettside() {
 function UKMnettside_script() {
 	wp_enqueue_media();
 	
-	wp_enqueue_script('UKMnettside_script',  plugin_dir_url( __FILE__ )  . 'UKMnettside.js' );
+	wp_enqueue_script('UKMnettside_script',  plugin_dir_url( __FILE__ )  . 'ukmnettside.js' );
 #	wp_enqueue_style( 'UKMnettside_style', plugin_dir_url( __FILE__ ) .'monstring.css');
 	
 	wp_enqueue_script('bootstrap3_js');
