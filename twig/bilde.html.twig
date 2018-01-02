@@ -1,0 +1,32 @@
+<form method="POST">
+	<h3>Forsidebilde</h3>
+
+	{% embed "message.html.twig" %}{% endembed %}
+
+	<p>
+		Her kan du velge et eget bilde som vises på toppen, i stedet for den oransje linjen.
+		<br />
+		OBS: bildet må være i liggende format, og vil bli beskjært automatisk.
+	</p>
+	<div>
+		<div class="float-left pull-left">
+			<img src="{{ image }}" height="100" id="banner_image_preview" style="margin-right: 8px; {{ image is empty ? 'display:none;' }}" />
+		</div>
+			<input type="hidden" id="banner_image_input" name="banner_image" value="{{ image }}" />
+			<p>
+				<button type="button" class="btn btn-primary" id="banner_image_select" >Velg bilde</button>
+			</p>
+			{% if image is not empty %}
+				<p>
+					<button type="button" class="btn btn-danger btn-sm" id="banner_image_remove">Fjern bilde</button>
+				</p>
+			{% endif %}
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	
+	<p>&nbsp;</p>
+		
+	<button type="submit" class="btn btn-large btn-success">Lagre</button>
+	<p>&nbsp;</p>
+</form>

@@ -1,0 +1,76 @@
+<h2>Din nettside</h2>
+
+{% embed "message.html.twig" %}{% endembed %}
+
+
+<p class="lead">
+	Sammen med det nye designet som ble lansert i 2018 har det kommet en del ekstra-funksjoner.
+</p>
+<p>
+	I menyen til venstre finner du blant annet 
+	<a href="?page=UKMnettside_bilde">forsidebilde</a>
+	og 
+	<a href="?page=UKMnettside_info">informasjonsside</a>
+	som lar deg tilpasse din nettside.
+</p>
+<p>
+	Ingenting av dette er obligatorisk, men gjør at nettsiden kan bedre være det verktøyet du trenger.
+</p>
+
+<h3>
+	Informasjonsside
+	 <small><a href="?page=UKMnettside_info">endre</a></small>
+</h3>
+<p>
+	På informasjonssiden legger du inn informasjon du mener dine deltakere bør ha tilgang til. 
+	I motsetning til nyhetssaker (innlegg) forsvinner disse ikke nedover på siden, men blir liggende på topp.
+	Når siden din fylles opp med innhold, vil informasjonssiden dukke opp som et eget menyvalg kalt "informasjon".
+</p>
+
+<h3>
+	Forsidebilde
+	<small><a href="?page=UKMnettside_bilde">endre</a></small>
+</h3>
+<p>
+	Ved å legge inn et forsidebilde ser siden din mye mer levende ut. 
+	Velg gjerne et bilde med glade deltakere på, men pass på at du bruker et bilde du har lov til å bruke.
+</p>
+
+<form method="POST">
+	{% if har_ekstra_meny %}
+		<h3>Meny</h3>
+		<p class="lead">
+			I tillegg til standard-menyen (påmeldte, kontaktpersoner osv) kan du legge til egne menyvalg
+		</p>
+		
+		{% if menyer|length > 0 %}
+			<p>
+				Du kan 
+				<a href="nav-menus.php">opprette og endre menyer</a>
+				fra denne siden
+			</p>
+			<p>
+				Velg hvilken meny som skal vises på forsiden
+			</p>
+			<select class="form-control" name="selected_menu">
+				<option value="false" {{ valgt_meny == 'false' ? 'selected="selected"'}}>Ikke bruk en meny</option>
+				{% for meny in menyer %}
+					<option value="{{ meny.term_id }}" {{ valgt_meny == meny.term_id ? 'selected="selected"'}}>{{ meny.name }}</option>
+				{% endfor %}
+			</select>
+		{% else %}
+			<p>
+				Du må begynne med å 
+				<a href="nav-menus.php">opprette en ny meny</a>
+				(du velger navn selv), og legge til menyelementer i denne. 
+				<br />
+				<b>OBS:</b> Du må tilbake til denne siden og velge at menyen skal vises etter du har opprettet den.
+			</p>
+		{% endif %}
+	{% endif %}
+
+	<p>&nbsp;</p>
+		
+	<button type="submit" class="btn btn-large btn-success">Lagre</button>
+	<p>&nbsp;</p>
+</form>
