@@ -17,7 +17,7 @@ jQuery(document).on('click', '#banner_image_select', function(e) {
         
         jQuery('#banner_image_preview').attr('src', image.url).slideDown();
         jQuery('#banner_image_input').val( image.url );
-        jQuery('#banner_image_id_input').val( image.id );
+        jQuery('#banner_image_id_input').val( attachment.id );
     })
     .open();
 });
