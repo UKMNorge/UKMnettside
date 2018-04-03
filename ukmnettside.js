@@ -9,7 +9,7 @@ jQuery(document).on('click', '#banner_image_select', function(e) {
     .on('select', function() {
         var attachment = custom_uploader.state().get('selection').first().toJSON();
         
-        console.log( attachment );
+        //console.log( attachment );
         var image = attachment.sizes.large;
         if( image == null || image == undefined ) {
 	        image = attachment.sizes.full;
