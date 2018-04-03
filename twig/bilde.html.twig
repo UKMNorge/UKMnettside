@@ -12,6 +12,7 @@
 		<div class="float-left pull-left">
 			<img src="{{ image }}" height="100" id="banner_image_preview" style="margin-right: 8px; {{ image is empty ? 'display:none;' }}" />
 		</div>
+			<input type="hidden" id="banner_image_id_input" name="banner_image_id" value="{{ image }}" />
 			<input type="hidden" id="banner_image_input" name="banner_image" value="{{ image }}" />
 			<p>
 				<button type="button" class="btn btn-primary" id="banner_image_select" >Velg bilde</button>
