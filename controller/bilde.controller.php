@@ -27,4 +27,5 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['banner_image'] ) ) {
 }
 
 $TWIGdata['image'] = get_option('UKM_banner_image');
+$TWIGdata['image_id'] = null;
 echo TWIG('bilde.html.twig', $TWIGdata, PLUGIN_NETTSIDE_DIR );
