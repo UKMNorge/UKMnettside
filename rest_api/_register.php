@@ -7,7 +7,7 @@ add_action(
 	function () {
 		$register = register_rest_route(
 			'UKM', 
-			'/nettside/', 
+			'/informasjon/', 
 			[
 				'methods' => 'GET',
 				'callback' => 'UKMnettside_api',
