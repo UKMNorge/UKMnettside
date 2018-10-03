@@ -57,6 +57,8 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset($_POST['forside_editor'] ) &&
 			$TWIGdata['saved'][] = "Oppdaterte informasjonsside din!";# ID: ".$front;
 		}
 	}
+	
+	update_option('UKMnettside_info_last_updated', time());
 
 	// Last inn innholdet på nytt dersom lagring funka - for å laste inn bilder skikkelig.
 	if ( empty($TWIGdata['errors']) ) {
