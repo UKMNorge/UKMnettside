@@ -11,7 +11,7 @@ jQuery(document).on('click', '#banner_image_select', function(e) {
         
         //console.log( attachment );
         var image = attachment.sizes.large;
-        if( image == null || image == undefined ) {
+        if( image == null || image == undefined ) {
 	        image = attachment.sizes.full;
         }
         
