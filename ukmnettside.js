@@ -15,13 +15,23 @@ jQuery(document).on('click', '#banner_image_select', function(e) {
 	        image = attachment.sizes.full;
         }
         
-        jQuery('#banner_image_preview').attr('src', image.url).slideDown();
+        jQuery('.forside-header').css('background-image', 'url('+ image.url +')');
+        jQuery('.forside-detaljer').slideDown();
         jQuery('#banner_image_input').val( image.url );
         jQuery('#banner_image_id_input').val( attachment.id );
     })
     .open();
 });
 jQuery(document).on('click', '#banner_image_remove', function(){
-    jQuery('#banner_image_preview').attr('src', false).slideUp();
+    jQuery('.forside-header').attr('background-image', false);
+    jQuery('.forside-detaljer').slideUp();
     jQuery('#banner_image_input').val(false);
+});
+
+jQuery(document).on('change', '#position-y', function(){
+    jQuery('.forside-header').css('background-position-y', $(this).val().replace('bottom','95%') );
+});
+
+jQuery(document).on('change', '#position-x', function(){
+    jQuery('.forside-header').css('background-position-x', $(this).val() );
 });

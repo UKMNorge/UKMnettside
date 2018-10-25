@@ -4,30 +4,68 @@
 	{% embed "message.html.twig" %}{% endembed %}
 
 	<p>
-		Her kan du velge et eget bilde som vises på toppen, i stedet for den oransje linjen.
+		Her kan du velge et eget bilde som vises på toppen av nettsiden din, i stedet for den oransje linjen.
 		<br />
-		OBS: bildet må være i liggende format, og vil bli beskjært automatisk.
+		Bildet må være i liggende format, og vil bli beskjært automatisk. Nedenfor kan du se en grov-skisse av hvordan det vil se ut på ulike skjermer.
 	</p>
+
 	<div>
-		<div class="float-left pull-left">
-			<img src="{{ image }}" height="100" id="banner_image_preview" style="margin-right: 8px; {{ image is empty ? 'display:none;' }}" />
-		</div>
-			<input type="hidden" id="banner_image_id_input" name="banner_image_id" value="{{ image_id }}" />
-			<input type="hidden" id="banner_image_input" name="banner_image" value="{{ image }}" />
-			<p>
-				<button type="button" class="btn btn-primary" id="banner_image_select" >Velg bilde</button>
-			</p>
-			{% if image is not empty %}
-				<p>
-					<button type="button" class="btn btn-danger btn-sm" id="banner_image_remove">Fjern bilde</button>
-				</p>
-			{% endif %}
-		</div>
+		<input type="hidden" id="banner_image_id_input" name="banner_image_id" value="{{ image_id }}" />
+		<input type="hidden" id="banner_image_input" name="banner_image" value="{{ image }}" />
+		<button type="button" class="btn btn-primary" id="banner_image_select" >Velg bilde</button>
+		{% if image is not empty %}
+			&nbsp; <button type="button" class="btn btn-danger btn-sm" id="banner_image_remove">Fjern bilde</button>
+		{% endif %}
 		<div class="clearfix"></div>
 	</div>
-	
+
+	<div class="forside-detaljer" {{ image is empty ? 'style="display:none;"' }}>
+		<div class="form-group" style="margin-top: 1em;">
+			<label style="font-weight: bold;">
+				Velg hvilken del av bildet som skal vises
+			</label>
+
+			<select class="form-control" name="banner_image_position_y" id="position-y">
+				<option value="top" {{ image_position_y == 'top' ? 'selected' }}>Vis alltid toppen</option>
+				<option value="center" {{ image_position_y == 'center' ? 'selected' }}>Vis alltid midten</option>
+				<option value="bottom" {{ image_position_y == 'bottom' ? 'selected' }}>Vis alltid bunnen</option>
+			</select>
+	{#
+			<select class="form-control" name="position-x" id="position-x">
+				<option value="top">Vis alltid høyre side</option>
+				<option value="center">Vis alltid midten</option>
+				<option value="bottom">Vis alltid venstre side</option>
+			</select>
+	#}
+		</div>
+
+		<table style="margin-top: 1em;">
+			<tr>
+				<td>
+					<h3 class="small text-muted caps mb-0" style="margin-bottom: 0px;">Mobil</h3>
+					<div class="forside-preview" id="phone">
+						{% include "preview.html.twig" %}
+					</div>
+				</td>
+
+				<td>
+					<h3 class="small text-muted caps mb-0" style="margin-bottom: 0px;">Nettbrett</h3>
+					<div class="forside-preview" id="pad">
+						{% include "preview.html.twig" %}
+					</div>
+				</td>
+
+				<td>
+					<h3 class="small text-muted caps mb-0" style="margin-bottom: 0px;">Desktop</h3>
+					<div class="forside-preview" id="desktop">
+						{% include "preview.html.twig" %}
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
 	<p>&nbsp;</p>
-		
 	<button type="submit" class="btn btn-large btn-success">Lagre</button>
 	<p>&nbsp;</p>
 </form>

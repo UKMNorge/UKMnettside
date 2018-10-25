@@ -1,0 +1,70 @@
+.forside-preview {
+    margin-right: 3em;
+    height: 35vh;
+    font-size: .2em;
+    background-color: #fff;
+    border: 4px solid #ddd;
+}
+
+.forside-body {
+    margin-left: 3%;
+}
+.forside-body h2 {
+    font-size: 2em;
+    line-height: calc(2em*1.22);
+    margin: .8em auto;
+}
+.forside-body p {
+    font-size: 2em;
+    line-height: 1.22em;
+    margin: 1em auto;
+}
+
+.forside-header {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    min-height: 30%;
+    position: relative;
+}
+
+.forside-header-content {
+    padding-top: calc(35vh*.01);
+    margin-left: calc(35vh*.01);
+    height: 100%;
+}
+.forside-header-content img {
+    height: calc(35vh*.04);
+}
+
+.forside-header-content p {
+    position: absolute;
+    bottom: .5em;
+    margin-bottom: 0px;
+
+    color: #ffffff;
+    font-size: 2em;
+}
+
+#phone {
+    width: calc(35vh*0.563);
+}
+
+#pad {
+    width: calc(35vh*0.75);
+}
+
+#desktop {
+    width: calc(35vh/0.6);
+}
+
+.small {
+    font-size: 1em;
+    line-height: 1.22em;
+}
+.text-muted {
+    color: #909090;
+}
+.caps {
+    text-transform: uppercase;
+}
