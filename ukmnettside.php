@@ -13,6 +13,25 @@ if( is_admin() ) {
 	if( in_array( get_option('site_type'), array('kommune','fylke')) ) {
 		add_action('UKM_admin_menu', 'UKMnettside_meny');
 	}
+	add_filter('UKMWPDASH_messages', 'UKMnettside_messages');
+
+}
+
+function UKMnettside_messages( $MESSAGES ) {
+	$forside = get_page_by_path('info');
+	if( null == $forside ) {
+		return $MESSAGES;
+	}
+	
+	if( get_option('UKMnettside_info_last_updated' ) < (int) mktime(0,0,0,8,1, get_site_option('season')-1 ) ) {
+		$MESSAGES[] = array('level' 	=> 'alert-warning',
+								'header' 	=> 'Sjekk at informasjonssiden din er oppdatert',
+								'link' 		=> 'admin.php?page=UKMnettside_info',
+								);
+	}
+
+	return $MESSAGES;
+
 }
 
 // REST-API din nettside
@@ -29,7 +48,7 @@ function UKMnettside_meny() {
 			'UKMnettside', 
 			'UKMnettside',
 			'//ico.ukm.no/menu-menu.png',
-			0
+			1
 		);
 		UKM_add_submenu_page(	
 						'UKMnettside',
