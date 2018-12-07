@@ -99,16 +99,8 @@ class UKMwpAPI {
 
         $items = [];
         foreach( $menu_items as $menu_item ) {
-            $item = new stdClass();
-            $item->id           = $menu_item->object_id;
-            $item->date         = null;
-            $item->title        = $menu_item->title;
-            $item->lead         = 'Ingress kommer her etter hvert';
-            $item->url          = $menu_item->url;
-            $item->image        = 'https://placehold.it/300x169/';
-            $item->contenturl   = 'https://ukm.no/testfylke/wp-json/UKM/content/'. $menu_item->object_id;
-
-            $items[] = $item;
+            $postData = self::_getPostFromId( $menu_item->object_id );
+            $items[] = $postData;
         }
 
         return $items;
