@@ -26,20 +26,18 @@ function UKMnettside_api() {
 }
 
 function UKMnettside_api_post( $id ) {
-
     $post = get_post( $id );
 	$post_id = $post->ID;
 	setup_postdata($post);
     $wpoop = new WPOO_Post( $post );
 
-    var_dump( $wpoop );
-
     $item = new stdClass();
     $item->id   		= $wpoop->ID;
+    $item->date         = $wpoop->date;
     $item->title     	= $wpoop->title;
     $item->lead 	    = $wpoop->lead;
     $item->url  		= $wpoop->url;
-    $item->image        = 'https://placehold.it/300x169/';
+    $item->image        = $wpoop->image->url;//'https://placehold.it/300x169/';
     $item->contenturl   = 'https://ukm.no/testfylke/wp-json/UKM/content/'. $menu_item->ID;
 }
 
@@ -49,10 +47,9 @@ function UKMnettside_api_content( $id ) {
 	setup_postdata($post);
     $wpoop = new WPOO_Post( $post );
 
-    var_dump( $wpoop );
-    
-	$data = new stdClass();
-    $data->content = 'Her kommer innholdet';
+    $data = new stdClass();
+    $data->id           = $wpoop->ID;
+    $data->content      = $wpoop->content_wo_lead;//
     
     return $data;
 }
