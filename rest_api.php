@@ -123,7 +123,9 @@ class UKMwpAPI {
     /**
      * HELPER: Hent gitt post fra ID
      */
-    public static function _getPostFromId( $post_id ) {
+    public static function _getPostFromId( $_post_id ) {
+        global $post_id;
+        $post_id = $_post_id;
         $post = get_post( $post_id );
         setup_postdata( $post );
         return new WPOO_Post( $post );
