@@ -19,6 +19,19 @@ class UKMwpAPI {
         );
 
         /**
+         * ENDPOINT 4: Innlegg i bloggen
+         */
+        $register = register_rest_route(
+			'UKM', 
+			'/nyheter/', 
+			[
+				'methods' => 'GET',
+				'callback' => ['UKMwpAPI', 'nyheter'],
+				'args' => []
+			]
+        );
+
+        /**
          * ENDPOINT 1 Info om en gitt post
          */
         $register = register_rest_route(
@@ -53,15 +66,7 @@ class UKMwpAPI {
     public static function post( $request ) {
         $postData = self::_getPostFromId( $request->get_param('id') );
 
-        $data = new stdClass();
-        $data->id           = $postData->ID;
-        $data->date         = $postData->date;
-        $data->title        = $postData->title;
-        $data->lead         = $postData->lead;
-        $data->url          = $postData->url;
-        $data->image        = $postData->image->url;//'https://placehold.it/300x169/';
-        $data->contenturl   = 'https://ukm.no/testfylke/wp-json/UKM/content/'. $item->id;
-
+        $data = self::_getPostDataFromWPOOPost( $post );
         return $data;
     }
 
@@ -109,11 +114,43 @@ class UKMwpAPI {
     }
 
     /**
+     * ENDPOINT 4: Innlegg i bloggen
+     */
+    public static function nyheter() {
+        $nyheter = [];
+        $posts = query_posts('posts_per_page=100');
+	    while( have_posts() ) {
+	       the_post();
+	       $nyheter[] = self::_getPostDataFromWPOOPost( new WPOO_Post( $post ) );
+        }
+        
+        return $nyheter;
+    }
+
+    /**
      * HELPER: Hent gitt post fra ID
      */
     public static function _getPostFromId( $post_id ) {
         $post = get_post( $post_id );
         setup_postdata( $post );
         return new WPOO_Post( $post );
+    }
+
+    /**
+     * HELPER: Setup return post data fra WPOO-objekt
+     */
+    public static function _getPostDataFromWPOOPost( $wpoo_post ) {
+        
+        $data = new stdClass();
+
+        $data->id           = $wpoo_post->ID;
+        $data->date         = $wpoo_post->date;
+        $data->title        = $wpoo_post->title;
+        $data->lead         = $wpoo_post->lead;
+        $data->url          = $wpoo_post->url;
+        $data->image        = $wpoo_post->image->url;//'https://placehold.it/300x169/';
+        $data->contenturl   = 'https://ukm.no/testfylke/wp-json/UKM/content/'. $item->id;
+
+        return $data;
     }
 }
