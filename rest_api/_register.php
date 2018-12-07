@@ -24,5 +24,15 @@ add_action(
                 'args' => ['id']
             ]
         );
+
+        $register = register_rest_route(
+            'UKM',
+            '/content/(?P<id>\d+)',
+            [
+                'methods' => 'GET',
+                'callback' => 'UKMnettside_api_content',
+                'args' => ['id']
+            ]
+        );
 	}
 );

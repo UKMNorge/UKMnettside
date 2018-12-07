@@ -11,13 +11,14 @@ function UKMnettside_api() {
 	$items = [];
 	foreach( $menu_items as $menu_item ) {
 
+        
 		$item = new stdClass();
-		$item->id 		= $menu_item->ID;
-		$item->title 	= $menu_item->title;
-		$item->lead 	= 'Ingress kommer her etter hvert';
-        $item->url		= $menu_item->url;
-        $item->image    = 'https://placehold.it/300x169/';
-        $item->contenturl = 'https://ukm.no/testfylke/wp-json/UKM/post/'. $menu_item->ID;
+		$item->id   		= $menu_item->ID;
+		$item->title     	= $menu_item->title;
+		$item->lead 	    = 'Ingress kommer her etter hvert';
+        $item->url  		= $menu_item->url;
+        $item->image        = 'https://placehold.it/300x169/';
+        $item->contenturl   = 'https://ukm.no/testfylke/wp-json/UKM/content/'. $menu_item->ID;
         
         $items[] = $item;
 	}
@@ -25,11 +26,31 @@ function UKMnettside_api() {
 }
 
 function UKMnettside_api_post( $id ) {
+
     $post = get_post( $id );
 	$post_id = $post->ID;
 	setup_postdata($post);
     $wpoop = new WPOO_Post( $post );
 
+    var_dump( $wpoop );
+
+    $item = new stdClass();
+    $item->id   		= $wpoop->ID;
+    $item->title     	= $wpoop->title;
+    $item->lead 	    = $wpoop->lead;
+    $item->url  		= $wpoop->url;
+    $item->image        = 'https://placehold.it/300x169/';
+    $item->contenturl   = 'https://ukm.no/testfylke/wp-json/UKM/content/'. $menu_item->ID;
+}
+
+function UKMnettside_api_content( $id ) {
+    $post = get_post( $id );
+	$post_id = $post->ID;
+	setup_postdata($post);
+    $wpoop = new WPOO_Post( $post );
+
+    var_dump( $wpoop );
+    
 	$data = new stdClass();
     $data->content = 'Her kommer innholdet';
     
