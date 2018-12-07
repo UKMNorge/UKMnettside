@@ -17,7 +17,7 @@ add_action(
         
         $register = register_rest_route(
             'UKM',
-            '/post/<id>[\d]+',
+            '/post/(?P<id>\d+)',
             [
                 'methods' => 'GET',
                 'callback' => 'UKMnettside_api_post',
