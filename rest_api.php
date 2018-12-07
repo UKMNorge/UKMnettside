@@ -145,7 +145,7 @@ class UKMwpAPI {
         $data->lead         = $wpoo_post->lead;
         $data->url          = $wpoo_post->url;
         $data->image        = $wpoo_post->image->url;//'https://placehold.it/300x169/';
-        $data->contenturl   = 'https://ukm.no/testfylke/wp-json/UKM/content/'. $item->id;
+        $data->contenturl   = 'https://ukm.no/testfylke/wp-json/UKM/content/'. $data->id;
 
         return $data;
     }
