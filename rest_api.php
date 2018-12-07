@@ -54,12 +54,12 @@ class UKMwpAPI {
         $postData = self::_getPostFromId( $request->get_param('id') );
 
         $data = new stdClass();
-        $data->id           = $wpoop->ID;
-        $data->date         = $wpoop->date;
-        $data->title        = $wpoop->title;
-        $data->lead         = $wpoop->lead;
-        $data->url          = $wpoop->url;
-        $data->image        = $wpoop->image->url;//'https://placehold.it/300x169/';
+        $data->id           = $postData->ID;
+        $data->date         = $postData->date;
+        $data->title        = $postData->title;
+        $data->lead         = $postData->lead;
+        $data->url          = $postData->url;
+        $data->image        = $postData->image->url;//'https://placehold.it/300x169/';
         $data->contenturl   = 'https://ukm.no/testfylke/wp-json/UKM/content/'. $item->id;
 
         return $data;
