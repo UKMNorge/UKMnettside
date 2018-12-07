@@ -62,7 +62,7 @@ class UKMwpAPI {
         $data->image        = $wpoop->image->url;//'https://placehold.it/300x169/';
         $data->contenturl   = 'https://ukm.no/testfylke/wp-json/UKM/content/'. $item->id;
 
-        return $postData;
+        return $data;
     }
 
     /**
@@ -77,7 +77,7 @@ class UKMwpAPI {
         $data->lead     = $postData->lead;
         $data->content  = $postData->content_wo_lead;
         
-        return $postData;
+        return $data;
     }
 
     /**
