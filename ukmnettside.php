@@ -35,7 +35,7 @@ function UKMnettside_messages( $MESSAGES ) {
 }
 
 // REST-API din nettside
-require_once('rest_api/_register.php');
+require_once('rest_api.php');
 
 function UKMnettside_meny() {
 	// Legg til side for å redigere forsideinformasjonen.
