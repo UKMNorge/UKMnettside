@@ -13,6 +13,16 @@ add_action(
 				'callback' => 'UKMnettside_api',
 				'args' => []
 			]
-		);
+        );
+        
+        $register = register_rest_route(
+            'UKM',
+            '/post/<id>[\d]+',
+            [
+                'methods' => 'GET',
+                'callback' => 'UKMnettside_api_post',
+                'args' => ['id']
+            ]
+        );
 	}
 );

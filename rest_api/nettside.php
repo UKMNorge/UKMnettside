@@ -17,9 +17,21 @@ function UKMnettside_api() {
 		$item->lead 	= 'Ingress kommer her etter hvert';
         $item->url		= $menu_item->url;
         $item->image    = 'https://placehold.it/300x169/';
-        $item->contenturl = $menu_item->url .'?exportContent=true';
+        $item->contenturl = 'https://ukm.no/testfylke/wp-json/UKM/post/'. $menu_item->ID;
         
         $items[] = $item;
 	}
 	return $items;
+}
+
+function UKMnettside_api_post( $id ) {
+    $post = get_post( $id );
+	$post_id = $post->ID;
+	setup_postdata($post);
+    $wpoop = new WPOO_Post( $post );
+
+	$data = new stdClass();
+    $data->content = 'Her kommer innholdet';
+    
+    return $data;
 }
