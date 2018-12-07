@@ -100,7 +100,7 @@ class UKMwpAPI {
         $items = [];
         foreach( $menu_items as $menu_item ) {
             $postData = self::_getPostFromId( $menu_item->object_id );
-            $nyheter[] = self::_getPostDataFromWPOOPost( $postData );
+            $items[] = self::_getPostDataFromWPOOPost( $postData );
         }
 
         return $items;
