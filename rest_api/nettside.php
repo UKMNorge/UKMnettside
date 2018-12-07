@@ -16,7 +16,8 @@ function UKMnettside_api() {
 		$item->title 	= $menu_item->title;
 		$item->lead 	= 'Ingress kommer her etter hvert';
         $item->url		= $menu_item->url;
-        $item->bilde    = 'https://placehold.it/300x300/ello there';
+        $item->image    = 'https://placehold.it/300x169/';
+        $item->contenturl = $menu_item->url .'?exportContent=true';
         
         $items[] = $item;
 	}
