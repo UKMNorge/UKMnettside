@@ -101,6 +101,7 @@ class UKMwpAPI {
         foreach( $menu_items as $menu_item ) {
             $item = new stdClass();
             $item->id           = $menu_item->object_id;
+            $item->date         = null;
             $item->title        = $menu_item->title;
             $item->lead         = 'Ingress kommer her etter hvert';
             $item->url          = $menu_item->url;
@@ -144,7 +145,7 @@ class UKMwpAPI {
         $data = new stdClass();
 
         $data->id           = $wpoo_post->ID;
-        $data->date         = $wpoo_post->date;
+        $data->date         = $wpoo_post->raw->date;
         $data->title        = $wpoo_post->title;
         $data->lead         = $wpoo_post->lead;
         $data->url          = $wpoo_post->url;
