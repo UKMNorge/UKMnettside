@@ -112,6 +112,7 @@ class UKMwpAPI {
     public static function nyheter() {
         $nyheter = [];
         $posts = query_posts('posts_per_page=100');
+        global $post;
 	    while( have_posts() ) {
 	       the_post();
 	       $nyheter[] = self::_getPostDataFromWPOOPost( new WPOO_Post( $post ) );
