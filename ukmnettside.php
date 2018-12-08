@@ -34,9 +34,6 @@ function UKMnettside_messages( $MESSAGES ) {
 
 }
 
-// REST-API din nettside
-require_once('rest_api.php');
-
 function UKMnettside_meny() {
 	// Legg til side for å redigere forsideinformasjonen.
 	if(get_option('site_type') == 'fylke' || get_option('site_type') == 'kommune') {
