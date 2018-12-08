@@ -66,7 +66,7 @@ class UKMwpAPI {
     public static function post( $request ) {
         $postData = self::_getPostFromId( $request->get_param('id') );
 
-        $data = self::_getPostDataFromWPOOPost( $post );
+        $data = self::_getPostDataFromWPOOPost( $postData );
         return $data;
     }
 
