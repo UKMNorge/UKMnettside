@@ -36,7 +36,7 @@ function UKMnettside_messages( $MESSAGES ) {
 
 function UKMnettside_meny() {
 	// Legg til side for å redigere forsideinformasjonen.
-	if(get_option('site_type') == 'fylke' || get_option('site_type') == 'kommune') {
+	if(get_option('site_type') == 'fylke' || get_option('site_type') == 'kommune' || get_option('spesial_meny') ) {
 		UKM_add_menu_page(
 			'content', 
 			"Din nettside", 
