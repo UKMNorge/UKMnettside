@@ -40,7 +40,7 @@ function UKMnettside_meny() {
         'content', 
         "Din nettside", 
         "Din nettside", 
-        'editor', 
+        'ukm_nettside', 
         'UKMnettside', 
         'UKMnettside',
         '//ico.ukm.no/menu-menu.png',
@@ -51,7 +51,7 @@ function UKMnettside_meny() {
                     'UKMnettside',
                     'Forsidebilde',
                     'Forsidebilde',
-                    'editor',
+                    'ukm_nettside',
                     'UKMnettside_bilde',
                     'UKMnettside_bilde'
                 );
@@ -61,7 +61,7 @@ function UKMnettside_meny() {
             'UKMnettside',
             'Informasjonsside',
             'Informasjonsside',
-            'editor',
+            'ukm_nettside',
             'UKMnettside_info',
             'UKMnettside_info'
         );
@@ -72,7 +72,7 @@ function UKMnettside_meny() {
 						'UKMnettside',
 						'Ekstra-meny',
 						'Ekstra-meny',
-						'editor',
+						'ukm_nettside',
 						'nav-menus.php',
 						null
 					);
