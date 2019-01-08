@@ -31,5 +31,5 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['banner_image'] ) ) {
 $TWIGdata['image'] = get_option('UKM_banner_image');
 $TWIGdata['image_position_y'] = get_option('UKM_banner_image_position_y') == false ? 'top' : get_option('UKM_banner_image_position_y');
 $TWIGdata['image_id'] = null;
-$TWIGdata['monstring'] = new monstring_v2( get_option('pl_id') );
+#$TWIGdata['monstring'] = new monstring_v2( get_option('pl_id') );
 echo TWIG('bilde.html.twig', $TWIGdata, PLUGIN_NETTSIDE_DIR );
