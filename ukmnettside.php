@@ -10,7 +10,7 @@ Author URI: http://www.ukm-norge.no
 
 if( is_admin() ) {
 	define('PLUGIN_NETTSIDE_DIR', dirname(__FILE__) );
-	if( in_array( get_option('site_type'), array('kommune','fylke')) ) {
+	if( in_array( get_option('site_type'), array('kommune','fylke')) || get_option('spesial_meny') ) {
 		add_action('UKM_admin_menu', 'UKMnettside_meny');
 	}
 	add_filter('UKMWPDASH_messages', 'UKMnettside_messages');
