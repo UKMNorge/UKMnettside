@@ -36,35 +36,35 @@ function UKMnettside_messages( $MESSAGES ) {
 
 function UKMnettside_meny() {
 	// Legg til side for å redigere forsideinformasjonen.
-	if(get_option('site_type') == 'fylke' || get_option('site_type') == 'kommune' || get_option('spesial_meny') ) {
-		UKM_add_menu_page(
-			'content', 
-			"Din nettside", 
-			"Din nettside", 
-			'editor', 
-			'UKMnettside', 
-			'UKMnettside',
-			'//ico.ukm.no/menu-menu.png',
-			1
-		);
-		UKM_add_submenu_page(	
-						'UKMnettside',
-						'Forsidebilde',
-						'Forsidebilde',
-						'editor',
-						'UKMnettside_bilde',
-						'UKMnettside_bilde'
-					);
-		
-		UKM_add_submenu_page(	
-						'UKMnettside',
-						'Informasjonsside',
-						'Informasjonsside',
-						'editor',
-						'UKMnettside_info',
-						'UKMnettside_info'
-					);
+    UKM_add_menu_page(
+        'content', 
+        "Din nettside", 
+        "Din nettside", 
+        'editor', 
+        'UKMnettside', 
+        'UKMnettside',
+        '//ico.ukm.no/menu-menu.png',
+        1
+    );
 
+    UKM_add_submenu_page(	
+                    'UKMnettside',
+                    'Forsidebilde',
+                    'Forsidebilde',
+                    'editor',
+                    'UKMnettside_bilde',
+                    'UKMnettside_bilde'
+                );
+		
+    if( get_option('site_type') == 'fylke' || get_option('site_type') == 'kommune' ) {
+        UKM_add_submenu_page(	
+            'UKMnettside',
+            'Informasjonsside',
+            'Informasjonsside',
+            'editor',
+            'UKMnettside_info',
+            'UKMnettside_info'
+        );
 	}
 	
 	if( get_option('spesial_meny') ) {
