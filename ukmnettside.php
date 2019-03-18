@@ -67,7 +67,7 @@ function UKMnettside_meny() {
         );
 	}
 	
-	if( get_option('spesial_meny') ) {
+	if( get_option('site_type') == 'fylke' || get_option('spesial_meny') ) {
 		UKM_add_submenu_page(	
 						'UKMnettside',
 						'Ekstra-meny',
