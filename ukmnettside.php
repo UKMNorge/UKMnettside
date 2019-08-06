@@ -4,105 +4,128 @@ Plugin Name: UKM Nettside
 Plugin URI: http://www.ukm-norge.no
 Description: Styrer forsiden/nettsiden til lokal- eller fylkesmønstringen
 Author: UKM Norge / M Mandal 
-Version: 1.0 
+Version: 2.0 
 Author URI: http://www.ukm-norge.no
 */
 
-if( is_admin() ) {
-	define('PLUGIN_NETTSIDE_DIR', dirname(__FILE__) );
-	if( in_array( get_option('site_type'), array('kommune','fylke')) || get_option('spesial_meny') ) {
-		add_action('UKM_admin_menu', 'UKMnettside_meny');
-	}
-	add_filter('UKMWPDASH_messages', 'UKMnettside_messages');
 
-}
+require_once('UKM/wp_modul.class.php');
+define('PLUGIN_NETTSIDE_DIR', dirname(__FILE__) ); // TODO: skrives ut til fordel for UKMnettside::getPath()
 
-function UKMnettside_messages( $MESSAGES ) {
-	$forside = get_page_by_path('info');
-	if( null == $forside ) {
-		return $MESSAGES;
-	}
-	
-	if( get_option('UKMnettside_info_last_updated' ) < (int) mktime(0,0,0,8,1, get_site_option('season')-1 ) ) {
-		$MESSAGES[] = array('level' 	=> 'alert-warning',
-								'header' 	=> 'Sjekk at informasjonssiden din er oppdatert',
-								'link' 		=> 'admin.php?page=UKMnettside_info',
-								);
+class UKMnettside extends UKMWPmodul
+{
+	public static $action = 'forsidebilde';
+	public static $path_plugin = null;
+
+	public static function hook()
+	{
+		add_action( 'init', ['UKMnettside','registrer_forsidemeny'] );
+		add_filter('UKMWPDASH_messages', ['UKMnettside','meldinger']);	
+
+		if( in_array( get_option('site_type'), ['kommune','fylke']) || get_option('spesial_meny') ) {
+			add_action('admin_menu', ['UKMnettside','meny']);
+		}
 	}
 
-	return $MESSAGES;
+	/**
+	 * Registrer forside-menyen som kan lages
+	 *
+	 * @return void
+	 */
+	public static function registrer_forsidemeny() {
+		register_nav_menu('ukm-meny', 'Din forside-meny');
+	}
 
-}
+	/**
+	 * Render informasjonsside-admin
+	 *
+	 * @return void
+	 */
+	public static function renderInfoAdmin() {
+		static::setAction('infoside');
+		require_once( static::getPluginPath() .'controller/infoside.controller.php');
+	}
 
-function UKMnettside_meny() {
-	// Legg til side for å redigere forsideinformasjonen.
-    UKM_add_menu_page(
-        'content', 
-        "Din nettside", 
-        "Din nettside", 
-        'ukm_nettside', 
-        'UKMnettside', 
-        'UKMnettside',
-        '//ico.ukm.no/menu-menu.png',
-        1
-    );
+	/**
+	 * Admin-meny
+	 *
+	 * @return void
+	 */
+	public static function meny() {
+		// Forsidebilde
+		$page_bilde = add_submenu_page(
+			'edit.php',
+			'Forsidebilde',
+			'Forsidebilde',
+			'edit_posts',
+			'UKMnettside_forside',
+			['UKMnettside', 'renderAdmin']
+		);
 
-    UKM_add_submenu_page(	
-                    'UKMnettside',
-                    'Forsidebilde',
-                    'Forsidebilde',
-                    'ukm_nettside',
-                    'UKMnettside_bilde',
-                    'UKMnettside_bilde'
-                );
+		// Informasjonsside
+		$page_info = add_submenu_page(
+			'edit.php',
+			'Informasjonsside',
+			'Informasjonsside',
+			'edit_posts',
+			'UKMnettside_infoside',
+			['UKMnettside', 'renderInfoAdmin']
+		);
+
+		// Meny
+		$page_meny = add_submenu_page(
+			'edit.php',
+			'Meny',
+			'Meny',
+			'edit_posts',
+			'nav-menus.php'
+		);
+
+		foreach( ['meny','info','bilde'] as $key ) {
+			add_action( 
+				'admin_print_styles-' . ${'page_'.$key}, 
+				['UKMnettside','scripts_and_styles']
+			);
+		}
+	}
+
+	/**
+	 * Legg til melding til brukeren om at informasjonssiden må være oppdatert
+	 *
+	 * @param Array $meldinger
+	 * @return Array $meldinger
+	 */
+	public static function meldinger( $meldinger ) {
+		$forside = get_page_by_path('info');
+		if( null == $forside ) {
+			return $meldinger;
+		}
 		
-    if( get_option('site_type') == 'fylke' || get_option('site_type') == 'kommune' ) {
-        UKM_add_submenu_page(	
-            'UKMnettside',
-            'Informasjonsside',
-            'Informasjonsside',
-            'ukm_nettside',
-            'UKMnettside_info',
-            'UKMnettside_info'
-        );
+		if( get_option('UKMnettside_info_last_updated' ) < (int) mktime(0,0,0,8,1, get_site_option('season')-1 ) ) {
+			$meldinger[] = array('level' 	=> 'alert-warning',
+									'header' 	=> 'Sjekk at informasjonssiden din er oppdatert',
+									'link' 		=> 'admin.php?page=UKMnettside_info',
+									);
+		}
+	
+		return $meldinger;
 	}
-	
-	if( get_option('spesial_meny') ) {
-		UKM_add_submenu_page(	
-						'UKMnettside',
-						'Ekstra-meny',
-						'Ekstra-meny',
-						'ukm_nettside',
-						'nav-menus.php',
-						null
-					);
+
+	/**
+	 * Hook inn scripts og styles for de ulike sidene
+	 *
+	 * @return void
+	 */
+	public static function scripts_and_styles() {
+		wp_enqueue_media();
+		
+		wp_enqueue_script('UKMnettside_script',  plugin_dir_url( __FILE__ )  . 'ukmnettside.js' );
+		wp_enqueue_style( 'UKMnettside_style', plugin_dir_url( __FILE__ ) .'ukmnettside.css');
+		
+		wp_enqueue_script('bootstrap3_js');
+		wp_enqueue_style('bootstrap3_css');
 	}
-	
-	UKM_add_scripts_and_styles( 'UKMnettside_info', 'UKMnettside_script' );
-	UKM_add_scripts_and_styles( 'UKMnettside_bilde', 'UKMnettside_script' );
-
 }
 
-
-function UKMnettside_info() {
-	require_once('controller/info.controller.php');
-}
-
-function UKMnettside_bilde() {
-	require_once('controller/bilde.controller.php');
-}
-
-function UKMnettside() {
-	require_once('controller/nettside.controller.php');
-}
-
-## INCLUDE SCRIPTS
-function UKMnettside_script() {
-	wp_enqueue_media();
-	
-	wp_enqueue_script('UKMnettside_script',  plugin_dir_url( __FILE__ )  . 'ukmnettside.js' );
-	wp_enqueue_style( 'UKMnettside_style', plugin_dir_url( __FILE__ ) .'ukmnettside.css');
-	
-	wp_enqueue_script('bootstrap3_js');
-	wp_enqueue_style('bootstrap3_css');
-}
+UKMnettside::init(__DIR__);
+UKMnettside::hook();

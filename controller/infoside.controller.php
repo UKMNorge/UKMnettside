@@ -7,8 +7,10 @@
 */
 
 $monstring = new monstring_v2(get_option('pl_id'));
-$TWIGdata = array('UKM_HOSTNAME' => UKM_HOSTNAME, 'monstringsLink' => $monstring->getLink());
 $forside = get_page_by_path('info');
+
+UKMnettside::addViewData('UKM_HOSTNAME',UKM_HOSTNAME);
+UKMnettside::addViewData('monstringsLink', $monstring->getLink());
 
 $content = null;
 if( null != $forside ) {
@@ -18,8 +20,19 @@ if( null != $forside ) {
 // Hvis brukeren har trykt "Slett" eller "Lagre" etter å ha fjernet alt.
 if ("POST" == $_SERVER['REQUEST_METHOD']) {
 	if( isset( $_POST['deletePage'] ) || empty($_POST['forside_editor'] ) ) {
-		$deleted = UKMmonstring_deletePage($forside);
-		$TWIGdata[$deleted[0]][] = $deleted[1];
+		// Dersom editoren er tom, men vi har en side - slett siden. Skip trash.
+		$deleted = wp_delete_post($forside->ID, true);
+		if( !$deleted ) {
+			UKMnettside::addViewData(
+				"errors",
+				"Klarte ikke å slette forside-innholdet! Kontakt support"
+			);
+		} else {
+			UKMnettside::addViewData(
+				"saved",
+				"Fjernet innholdet."
+			);
+		}
 		$content = null;
 	}
 }
@@ -42,9 +55,18 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset($_POST['forside_editor'] ) &&
 		// Ingen informasjon er lagret tidligere, opprett siden.
 		$front = wp_insert_post($new_content, true);
 		if( null == $front || is_wp_error($front) ){
-			$TWIGdata['errors'][] = is_wp_error($front) ? "Klarte ikke å lagre innhold som ny side! Feilmelding: ". $front->get_error_message($code): "Klarte ikke å lagre innhold som ny side!";
+			UKMnettside::addViewData(
+				'errors', 
+				is_wp_error($front) ? 
+					"Klarte ikke å lagre innhold som ny side! Feilmelding: ". 
+					$front->get_error_message($code) : 
+					"Klarte ikke å lagre innhold som ny side!"
+			);
 		} else {
-			$TWIGdata['saved'][] = "Opprettet ny informasjonsside!";# ID: ".$front;
+			UKMnettside::addViewData(
+				'saved',
+				"Opprettet ny informasjonsside!"
+			);
 		}
 	} else {
 		// Eller oppdater den vi har fra før om det er sendt inn data og vi faktisk har en side å lagre til
@@ -52,34 +74,42 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset($_POST['forside_editor'] ) &&
 		$front = wp_update_post($new_content, true);
 		
 		if( null == $front || is_wp_error($front) ) {
-			$TWIGdata['errors'][] = is_wp_error($front) ? "Klarte ikke å lagre oppdatert innhold! Feilmelding: ". $front->get_error_message($code): "Klarte ikke å oppdatere forsiden!";	
+			UKMnettside::addViewData(
+				'errors',
+				is_wp_error($front) ? 
+					"Klarte ikke å lagre oppdatert innhold! Feilmelding: ". 
+					$front->get_error_message($code) : 
+					"Klarte ikke å oppdatere forsiden!"
+			);
 		} else {
-			$TWIGdata['saved'][] = "Oppdaterte informasjonsside din!";# ID: ".$front;
+			UKMnettside::addViewData(
+				'saved',
+				"Oppdaterte informasjonsside din!"
+			);
 		}
 	}
 	
 	update_option('UKMnettside_info_last_updated', time());
 
 	// Last inn innholdet på nytt dersom lagring funka - for å laste inn bilder skikkelig.
-	if ( empty($TWIGdata['errors']) ) {
+	
+	if ( empty( UKMnettside::getViewData()['errors'] ) ) {
 		$forside = get_page_by_path('info');
 		$content = $forside->post_content;
 	}
 }
 
-$TWIGdata['content'] = !empty($content);
-echo TWIG('forside_pre_editor.html.twig', $TWIGdata, PLUGIN_NETTSIDE_DIR );
+UKMnettside::addViewData('content', !empty($content));
+
+echo TWIG(
+	'forside_pre_editor.html.twig', 
+	UKMnettside::getViewData(), 
+	UKMnettside::getPluginPath()
+);
 wp_editor($content, 'forside_editor', $settings = array() );
-echo TWIG('forside_post_editor.html.twig', $TWIGdata, PLUGIN_NETTSIDE_DIR );
-
-
-function UKMmonstring_deletePage($forside) {
-	// Dersom editoren er tom, men vi har en side - slett siden. Skip trash.
-	$deleted = wp_delete_post($forside->ID, true);
-	if( !$deleted ) {
-		return ["errors", "Klarte ikke å slette forside-innholdet! Kontakt support"];
-	} else {
-		return ["saved", "Fjernet innholdet."];
-	}
-}
+echo TWIG(
+	'forside_post_editor.html.twig',
+	UKMnettside::getViewData(),
+	UKMnettside::getPluginPath()
+);
 ?>
