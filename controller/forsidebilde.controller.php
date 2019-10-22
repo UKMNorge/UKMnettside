@@ -2,10 +2,7 @@
 require_once('UKM/monstring.class.php');
 global $parent_file;
 
-$TWIGdata = [
-	'UKM_HOSTNAME' => UKM_HOSTNAME,
-	'saved' => [],
-];
+UKMnettside::addViewData('UKM_HOSTNAME', UKM_HOSTNAME);
 
 // Hvis brukeren har trykt lagre og vi har data.
 if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['banner_image'] ) ) {
@@ -25,11 +22,17 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['banner_image'] ) ) {
 			}
 		}
 	}
-	$TWIGdata['saved'][] = 'Lagret!';
+	UKMnettside::addViewData('saved', 'Lagret!');
 }
 
-$TWIGdata['image'] = get_option('UKM_banner_image');
-$TWIGdata['image_position_y'] = get_option('UKM_banner_image_position_y') == false ? 'top' : get_option('UKM_banner_image_position_y');
-$TWIGdata['image_id'] = null;
-#$TWIGdata['monstring'] = new monstring_v2( get_option('pl_id') );
-echo TWIG('bilde.html.twig', $TWIGdata, PLUGIN_NETTSIDE_DIR );
+UKMnettside::addViewData(
+	'image', 
+	get_option('UKM_banner_image')
+);
+UKMnettside::addViewData(
+	'image_position_y',
+	get_option('UKM_banner_image_position_y') == false ? 
+		'top' : 
+		get_option('UKM_banner_image_position_y')
+);
+UKMnettside::addViewData('image_id', null);
