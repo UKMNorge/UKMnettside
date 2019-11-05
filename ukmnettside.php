@@ -104,7 +104,7 @@ class UKMnettside extends UKMWPmodul
 		if( get_option('UKMnettside_info_last_updated' ) < (int) mktime(0,0,0,8,1, get_site_option('season')-1 ) ) {
 			$meldinger[] = array('level' 	=> 'alert-warning',
 									'header' 	=> 'Sjekk at informasjonssiden din er oppdatert',
-									'link' 		=> 'admin.php?page=UKMnettside_info',
+									'link' 		=> 'edit.php?page=UKMnettside_infoside',
 									);
 		}
 	
