@@ -21,10 +21,7 @@ class UKMnettside extends UKMWPmodul
 	{
 		add_action( 'init', ['UKMnettside','registrer_forsidemeny'] );
 		add_filter('UKMWPDASH_messages', ['UKMnettside','meldinger']);	
-
-		if( in_array( get_option('site_type'), ['kommune','fylke']) || get_option('spesial_meny') ) {
-			add_action('admin_menu', ['UKMnettside','meny']);
-		}
+        add_action('admin_menu', ['UKMnettside','meny']);
 	}
 
 	/**
@@ -79,6 +76,23 @@ class UKMnettside extends UKMWPmodul
 			'Meny',
 			'edit_posts',
 			'nav-menus.php'
+        );
+        
+		// Import / export
+		$page_import = add_submenu_page(
+			'edit.php',
+			'Importer',
+			'Importer',
+			'superadmin',
+			'import.php'
+		);
+
+		$page_export = add_submenu_page(
+			'edit.php',
+			'Eksporter',
+			'Eksporter',
+			'superadmin',
+			'export.php'
 		);
 
 		foreach( ['meny','info','bilde'] as $key ) {
