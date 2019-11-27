@@ -6,11 +6,10 @@
 * 
 */
 
-$monstring = new monstring_v2(get_option('pl_id'));
 $forside = get_page_by_path('info');
 
 UKMnettside::addViewData('UKM_HOSTNAME',UKM_HOSTNAME);
-UKMnettside::addViewData('monstringsLink', $monstring->getLink());
+UKMnettside::addViewData('monstringsLink', get_home_url());
 
 $content = null;
 if( null != $forside ) {
