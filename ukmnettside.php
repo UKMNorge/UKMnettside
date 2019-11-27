@@ -8,11 +8,11 @@ Version: 2.0
 Author URI: http://www.ukm-norge.no
 */
 
+use UKMNorge\Wordpress\Modul;
 
-require_once('UKM/wp_modul.class.php');
-define('PLUGIN_NETTSIDE_DIR', dirname(__FILE__) ); // TODO: skrives ut til fordel for UKMnettside::getPath()
+require_once('UKM/Autoloader.php');
 
-class UKMnettside extends UKMWPmodul
+class UKMnettside extends Modul
 {
 	public static $action = 'forsidebilde';
 	public static $path_plugin = null;
