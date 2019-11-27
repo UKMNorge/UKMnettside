@@ -69,14 +69,16 @@ class UKMnettside extends Modul
 			['UKMnettside', 'renderInfoAdmin']
 		);
 
-		// Meny
-		$page_meny = add_submenu_page(
-			'edit.php',
-			'Meny',
-			'Meny',
-			'edit_posts',
-			'nav-menus.php'
-        );
+        if( in_array( get_option('site_type'), ['arrangement'] ) ) {
+            // Meny
+            $page_meny = add_submenu_page(
+                'edit.php',
+                'Meny',
+                'Meny',
+                'edit_posts',
+                'nav-menus.php'
+            );
+        }
         
 		// Import / export
 		$page_import = add_submenu_page(
