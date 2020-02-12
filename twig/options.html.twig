@@ -1,0 +1,8 @@
+<div class="btn-group radioButtons" data-name="{{ id }}" id="radioButton_{{id}}">
+	{% for option in options %}
+		<button type="button" class="btn btn-xs btn-default {{ start is defined and start == option.id ? 'selected' }}" value="{{option.id}}">
+			&nbsp;
+			{{ option.title }}
+			&nbsp;</button>
+	{% endfor %}
+</div>

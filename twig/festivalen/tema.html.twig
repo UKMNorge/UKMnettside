@@ -1,0 +1,65 @@
+<h3>Forside-mal</h3>
+<p>
+	Den nasjonale festivalen følger en tidslinje. Her kan du definerer når den skal bytte.
+</p>
+
+<table class="table table-striped">
+	<tr>
+		<th>
+			1. Plakat
+			<p class="small normal">
+				Plakaten viser hvor og når festivalen er, 
+				                i tillegg til når mer info kommer.
+            </p>
+            <p class="small normal text-danger">
+                Husk å fjerne forsidebilde når denne er aktivert
+			</p>
+		</th>
+		<td>
+			<p>
+				<a href="index.php" class="btn btn-xs btn-ukm">Endre festivalens dato og sted</a>
+			</p>
+			<p class="bold">Mer info kommer:</p>
+			<input type="date" class="form-control" name="festival_leave_plakat" value="{{festival_leave_plakat}}"/>
+			<p class="text-muted small mt-0">
+				OBS: forsiden bytter automatisk til forside nr 2 denne datoen.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			2. Stemningsinfo
+			<p class="small normal">
+				Enkel info som beskriver hva man kan være med på, og hva festivalen er.
+				                Tidligere har denne vært satt opp med FullStory (lang scroll-side)
+			</p>
+            <p class="small normal text-danger">
+                Siden som skal vises må ha URL ukm-festivalen.no/hva-er/
+			</p>
+
+		</th>
+		<td>
+			<p>
+				<a href="edit.php?post_type=page" class="btn btn-xs btn-ukm">Endre innholdet</a>
+			</p>
+			<p class="bold">Mer info kommer:</p>
+			<input type="date" class="form-control" name="festival_leave_stemning" value="{{festival_leave_stemning}}" />
+			<p class="text-muted small mt-0">
+				OBS: forsiden bytter automatisk til forside nr 3 denne datoen.
+			</p>
+		</td>
+	</tr>
+    <tr>
+		<th>
+			3. Innhold
+			<p class="small normal">
+				Viser festivalens innholdsproduksjon
+			</p>
+		</th>
+		<td>
+            <p>
+				<a href="edit.php" class="btn btn-xs btn-ukm">Endre nyheter</a>
+			</p>
+		</td>
+	</tr>
+</table>

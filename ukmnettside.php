@@ -41,7 +41,12 @@ class UKMnettside extends Modul
 	public static function renderInfoAdmin() {
 		static::setAction('infoside');
 		require_once( static::getPluginPath() .'controller/infoside.controller.php');
-	}
+    }
+    
+    public static function renderForside() {
+        static::setAction('forside');
+        static::renderAdmin();
+    }
 
 	/**
 	 * Admin-meny
@@ -49,6 +54,9 @@ class UKMnettside extends Modul
 	 * @return void
 	 */
 	public static function meny() {
+
+        ## OBS: UKMDesign registrerer også ett menyelement her som kaller UKMnettside::renderForside()
+
 		// Forsidebilde
 		$page_bilde = add_submenu_page(
 			'edit.php',
@@ -135,11 +143,12 @@ class UKMnettside extends Modul
 	public static function scripts_and_styles() {
 		wp_enqueue_media();
 		
-		wp_enqueue_script('UKMnettside_script',  plugin_dir_url( __FILE__ )  . 'ukmnettside.js' );
+		wp_enqueue_script('UKMnettside_script',  plugin_dir_url( __FILE__ )  . 'ukmnettside.js',[ 'wp-color-picker']);
+        wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'UKMnettside_style', plugin_dir_url( __FILE__ ) .'ukmnettside.css');
 		
-		wp_enqueue_script('bootstrap3_js');
-		wp_enqueue_style('bootstrap3_css');
+		wp_enqueue_script('WPbootstrap3_js');
+		wp_enqueue_style('WPbootstrap3_css');
 	}
 }
 
