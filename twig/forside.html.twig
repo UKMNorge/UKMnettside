@@ -1,0 +1,131 @@
+<style>
+	table th {
+		width: 40%;
+	}
+</style>
+<div style="margin-right: 2em;">
+	<form method="POST"> 
+
+		{% if forside.harArrangement() and arrangement.getType() == 'land' %}
+            {% include "festivalen/tema.html.twig" %}
+		{% endif %}
+
+
+		<h3>Forside-banner</h3>
+		<p>Tilpass toppen av forsiden</p>
+		<table class="table table-striped">
+			{% if forside.supportBannerBilde() %}
+				<tr>
+					<th>
+						Forsidebilde
+					</th>
+					<td>
+						{% if forside.harBannerBilde() %}
+							<img src="{{ forside.getBannerBilde().getUrl() }}" style="float:left;" width="100"/>
+							<a href="?page=UKMnettside_forside" class="btn btn-ukm btn-xs">Endre forsidebilde</a>
+						{% else %}
+							Det er ikke angitt et forsidebilde.
+							<br/>
+							<a href="?page=UKMnettside_forside" class="btn btn-ukm btn-xs">Legg til et forsidebilde</a>
+						{% endif %}
+						<div class="clearfix"></div>
+					</td>
+				</tr>
+			{% endif %}
+			{% if forside.supportBannerSlagord() %}
+				<tr>
+					<th>
+						Tekst i banner
+						<p class="small text-muted normal">
+							Kort slagord / tekst som vises oppå forsidebildet
+						</p>
+					</th>
+					<td>
+						{% if forside.harBannerBilde() %}
+							<textarea name="slogan" class="form-control" maxlength="150">{{ forside.getBannerSlagord()|raw }}</textarea>
+						{% else %}
+							<p class="text-danger">
+								Siden må ha et forsidebilde for at du skal kunne angi slagord.
+							</p>
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<th>
+						Farge på hovedmeny-knapp
+					</th>
+					<td>
+						<input type="text" class="form-control colorpicker" name="menu_color" value="{{ forside.getBannerMenyFarge() }}"/>
+					</td>
+				</tr>
+			{% endif %}
+		</table>
+
+		<h3 class="mt-5">Menyer</h3>
+		<table class="table table-striped">
+			{% if forside.supportMeny() %}
+				<tr>
+					<th>
+						Egendefinert ekstra-meny
+						<p class="small text-muted normal">
+							Hvis du vil ha ekstra menyelementer på siden din, kan du legge til en meny her.
+														                            Alle meny-elementer vil vises som en egen knapp på forsiden.
+						</p>
+					</th>
+					<td>
+						{% if forside.hasMeny() %}
+							<select name="menu">
+								<option value="0">Ikke vis meny</option>
+								{% for meny in menyer %}
+									<option value="{{meny.term_id}}" {{ meny.term_id == forside.getMeny() ? 'selected'}}>{{meny.name}}</option>
+								{% endfor %}
+							</select>
+							<a href="nav-menus.php" class="btn btn-ukm btn-xs">Redigere meny</a>
+						{% else %}
+							<p class="text-muted">
+								Du må
+								<a href="nav-menus.php">opprette en meny</a>
+								før du kan velge hvilken som skal vises på forsiden
+							</p>
+						{% endif %}
+					</td>
+				</tr>
+			{% endif %}
+		</table>
+		{% if forside.harArrangement() %}
+			<h5>Arrangement-meny</h5>
+			<p>
+				Alle elementer vises sammen med et ikon på din forside.
+													Her kan du velge å overstyre automatikken som viser de.
+			</p>
+			<table class="table table-striped">
+				<tr>
+					<th>
+						Påmeldte
+						<p class="small text-muted normal">
+							Automatisk: Vises så fort du har påmeldte
+						</p>
+					</th>
+					<td>
+						{% include "options.html.twig" with {id: 'pameldte', start: 'auto', options: [{id: 'true', title: 'Vis'},{id: 'false', title: 'Skjul'},{id:'auto', title:'Automatisk'}]} %}
+					</td>
+				</tr>
+
+				<tr>
+					<th>
+						Program
+						<p class="small text-muted normal">
+							Automatisk: Vises når du har minst én hendelse som er synlig i rammeprogrammet
+						</p>
+					</th>
+					<td>
+						{% include "options.html.twig" with {id: 'program', start: 'auto', options: [{id: 'true', title: 'Vis'},{id: 'false', title: 'Skjul'},{id:'auto', title:'Automatisk'}]} %}
+					</td>
+				</tr>
+			</table>
+		{% endif %}
+
+
+		<button type="submit" class="btn btn-large btn-ukm btn-success">Lagre</button>
+	</form>
+</div>
