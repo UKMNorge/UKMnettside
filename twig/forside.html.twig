@@ -4,15 +4,15 @@
 	}
 </style>
 <div style="margin-right: 2em;">
-	<form method="POST"> 
+	<form method="POST" action="?page={{GET('page')}}">
+		<h1>Forsiden</h1>
+		{% include "wp_modul.flashbag.html.twig" %}
 
 		{% if forside.harArrangement() and arrangement.getType() == 'land' %}
-            {% include "festivalen/tema.html.twig" %}
+			{% include "festivalen/tema.html.twig" %}
 		{% endif %}
 
 
-		<h3>Forside-banner</h3>
-		<p>Tilpass toppen av forsiden</p>
 		<table class="table table-striped">
 			{% if forside.supportBannerBilde() %}
 				<tr>
@@ -22,16 +22,35 @@
 					<td>
 						{% if forside.harBannerBilde() %}
 							<img src="{{ forside.getBannerBilde().getUrl() }}" style="float:left;" width="100"/>
-							<a href="?page=UKMnettside_forside" class="btn btn-ukm btn-xs">Endre forsidebilde</a>
+							<a href="?page=UKMnettside&action=forsidebilde" class="btn btn-ukm btn-xs">Endre forsidebilde</a>
 						{% else %}
 							Det er ikke angitt et forsidebilde.
 							<br/>
-							<a href="?page=UKMnettside_forside" class="btn btn-ukm btn-xs">Legg til et forsidebilde</a>
+							<a href="?page=UKMnettside&action=forsidebilde" class="btn btn-ukm btn-xs">Legg til et forsidebilde</a>
 						{% endif %}
 						<div class="clearfix"></div>
 					</td>
 				</tr>
 			{% endif %}
+
+			{% if forside.supportInfoside() %}
+				<tr>
+					<th>
+						Informasjonstekst
+					</th>
+					<td>
+						<textarea id="informasjonstekst" name="informasjonstekst" class="wp-autoresize">
+							{{ (backupPageContent is defined ? backupPageContent : forside.getInfoside().getContent())|raw }}
+						</textarea>
+						{% if forside.getInfoside().getId() > 0 %}
+                            <p>
+                                <a href="?page=UKMnettside&deleteInfoSide={{forside.getInfoside().getId() }}" class="btn btn-ukm btn-xs btn-danger" onclick="return confirm('Er du sikker på at du vil slette informasjonsteksten?');">Slett informasjonstekst</a>
+                            </p>
+                        {% endif %}
+					</td>
+				</tr>
+			{% endif %}
+
 			{% if forside.supportBannerSlagord() %}
 				<tr>
 					<th>
@@ -59,17 +78,13 @@
 					</td>
 				</tr>
 			{% endif %}
-		</table>
-
-		<h3 class="mt-5">Menyer</h3>
-		<table class="table table-striped">
 			{% if forside.supportMeny() %}
 				<tr>
 					<th>
 						Egendefinert ekstra-meny
 						<p class="small text-muted normal">
 							Hvis du vil ha ekstra menyelementer på siden din, kan du legge til en meny her.
-														                            Alle meny-elementer vil vises som en egen knapp på forsiden.
+																																				                            Alle meny-elementer vil vises som en egen knapp på forsiden.
 						</p>
 					</th>
 					<td>
@@ -92,11 +107,11 @@
 				</tr>
 			{% endif %}
 		</table>
-		{% if forside.harArrangement() %}
+		{#% if forside.harArrangement() %}
 			<h5>Arrangement-meny</h5>
 			<p>
 				Alle elementer vises sammen med et ikon på din forside.
-													Her kan du velge å overstyre automatikken som viser de.
+																										Her kan du velge å overstyre automatikken som viser de.
 			</p>
 			<table class="table table-striped">
 				<tr>
@@ -123,7 +138,7 @@
 					</td>
 				</tr>
 			</table>
-		{% endif %}
+		{% endif %#}
 
 
 		<button type="submit" class="btn btn-large btn-ukm btn-success">Lagre</button>

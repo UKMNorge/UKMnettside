@@ -39,3 +39,23 @@ jQuery(document).on('change', '#position-x', function() {
 jQuery(document).ready(function() {
     jQuery('.colorpicker').wpColorPicker();
 });
+
+
+
+/* LOAD EDITOR
+God config-dokumentasjon: https://wordpress.stackexchange.com/questions/274592/how-to-create-wp-editor-using-javascript
+*/
+jQuery(document).ready(function() {
+    wp.editor.initialize(
+        'informasjonstekst', {
+            tinymce: {
+                //block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3',
+                autoresize_min_height: 100,
+                wp_autoresize_on: true,
+                plugins: 'wplink wpautoresize',
+                toolbar1: 'formatselect bold italic underline | bullist numlist | alignleft aligncenter alignright | wplink link unlink | removeformat'
+            },
+            mediaButtons: true
+        }
+    );
+});

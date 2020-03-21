@@ -14,7 +14,7 @@ require_once('UKM/Autoloader.php');
 
 class UKMnettside extends Modul
 {
-	public static $action = 'forsidebilde';
+	public static $action = 'forside';
 	public static $path_plugin = null;
 
 	public static function hook()
@@ -56,27 +56,18 @@ class UKMnettside extends Modul
 	public static function meny() {
 
         ## OBS: UKMDesign registrerer også ett menyelement her som kaller UKMnettside::renderForside()
-
-		// Forsidebilde
-		$page_bilde = add_submenu_page(
-			'edit.php',
-			'Forsidebilde',
-			'Forsidebilde',
-			'edit_posts',
-			'UKMnettside_forside',
-			['UKMnettside', 'renderAdmin']
-		);
-
-		// Informasjonsside
-		$page_info = add_submenu_page(
-			'edit.php',
-			'Informasjonsside',
-			'Informasjonsside',
-			'edit_posts',
-			'UKMnettside_infoside',
-			['UKMnettside', 'renderInfoAdmin']
-		);
-
+        add_action(
+            'admin_print_styles-' . add_submenu_page(
+                'edit.php',
+                'Forsiden',
+                'Forsiden',
+                'edit_posts',
+                'UKMnettside',
+                ['UKMnettside', 'renderAdmin']
+            ),
+            ['UKMnettside', 'scripts_and_styles']
+        );
+        
         if( in_array( get_option('site_type'), ['arrangement'] ) ) {
             // Meny
             $page_meny = add_submenu_page(
@@ -128,7 +119,7 @@ class UKMnettside extends Modul
 		if( get_option('UKMnettside_info_last_updated' ) < (int) mktime(0,0,0,8,1, get_site_option('season')-1 ) ) {
 			$meldinger[] = array('level' 	=> 'alert-warning',
 									'header' 	=> 'Sjekk at informasjonssiden din er oppdatert',
-									'link' 		=> 'edit.php?page=UKMnettside_infoside',
+									'link' 		=> 'edit.php?page=UKMnettside&action=infoside',
 									);
 		}
 	
@@ -141,7 +132,8 @@ class UKMnettside extends Modul
 	 * @return void
 	 */
 	public static function scripts_and_styles() {
-		wp_enqueue_media();
+        wp_enqueue_media();
+        wp_enqueue_editor();
 		
 		wp_enqueue_script('UKMnettside_script',  plugin_dir_url( __FILE__ )  . 'ukmnettside.js',[ 'wp-color-picker']);
         wp_enqueue_style( 'wp-color-picker' );
