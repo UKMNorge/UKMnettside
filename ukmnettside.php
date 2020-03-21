@@ -21,7 +21,7 @@ class UKMnettside extends Modul
 	{
 		add_action( 'init', ['UKMnettside','registrer_forsidemeny'] );
 		add_filter('UKMWPDASH_messages', ['UKMnettside','meldinger']);	
-        add_action('admin_menu', ['UKMnettside','meny']);
+        add_action('admin_menu', ['UKMnettside','meny'], 1);
 	}
 
 	/**
@@ -79,23 +79,6 @@ class UKMnettside extends Modul
             );
         }
         
-		// Import / export
-		$page_import = add_submenu_page(
-			'edit.php',
-			'Importer',
-			'Importer',
-			'superadmin',
-			'import.php'
-		);
-
-		$page_export = add_submenu_page(
-			'edit.php',
-			'Eksporter',
-			'Eksporter',
-			'superadmin',
-			'export.php'
-		);
-
 		foreach( ['meny','info','bilde'] as $key ) {
 			add_action( 
 				'admin_print_styles-' . ${'page_'.$key}, 
