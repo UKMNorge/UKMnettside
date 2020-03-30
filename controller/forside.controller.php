@@ -16,6 +16,11 @@ $festival_settings = [
 // LAGRING
 ////////////////////////////////////////////
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // FORSIDE-BILDE
+    if ( isset( $_POST['banner_image'] ) ) {
+        UKMnettside::require('save/forsidebilde.save.php');
+    }
+    
     // FORSIDE-BANNER
     if (isset($_POST['slogan'])) {
         Front::setBannerSlagord($_POST['slogan']);

@@ -1,11 +1,5 @@
 <?php
 
-global $parent_file;
-
-if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['banner_image'] ) ) {
-    UKMnettside::require('save/forsidebilde.save.php');
-}
-
 UKMnettside::addViewData(
     [
         'UKM_HOSTNAME' => UKM_HOSTNAME,

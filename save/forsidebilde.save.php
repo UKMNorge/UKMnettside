@@ -1,7 +1,5 @@
 <?php
 
-global $parent_file;
-
 // Hvis brukeren har trykt lagre og vi har data.
 if( empty( $_POST['banner_image'] ) || $_POST['banner_image'] == 'false' ) {
     delete_option('UKM_banner_image');
