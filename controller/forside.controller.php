@@ -4,6 +4,7 @@ use UKMNorge\Arrangement\Arrangement;
 use UKMNorge\DesignWordpress\Environment\Front\Front;
 use UKMNorge\DesignWordpress\Environment\Front\OmradeFront;
 use UKMNorge\Nettverk\Omrade;
+use UKMNorge\Wordpress\Blog;
 
 Front::init();
 
@@ -47,6 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             update_option($setting, $_POST[$setting]);
         }
     }
+
+    // KNAPP TIL FYLKESSIDEN
+    if( isset($_POST['visFylkeKnapp'])) {
+        if( $_POST['visFylkeKnapp'] == 'false' ) {
+            Blog::setOption(get_current_blog_id(),'skjulFylkeKnapp', true);
+        } else {
+            Blog::deleteOption(get_current_blog_id(),'skjulFylkeKnapp');
+        }
+    }
 } else {
     // INFOSIDE (DELETE)
     if (isset($_GET['deleteInfoSide'])) {
@@ -81,6 +91,7 @@ UKMnettside::addViewData(
     [
         'forside' => $front,
         'menyer' => wp_get_nav_menus(),
+        'visFylkeKnapp' => !Blog::getOption(get_current_blog_id(),'skjulFylkeKnapp')
     ]
 );
 

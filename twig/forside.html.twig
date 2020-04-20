@@ -79,13 +79,32 @@
 				</tr>
 			{% endif %}
 
+			{% if forside.erKommuneSide() and forside.getFylke().erFalskt() %}
+				<tr>
+					<th>
+                        Meny-knapp til UKM {{ forside.getFylke().getNavn() }}
+                        <p class="small text-muted normal">
+                            For kommuner i falske fylker (fylker som kun finnes i UKM-systemet)
+                            er det valgfritt å lenke til fylkessiden, da dette ikke alltid er ønskelig.
+                        </p>
+                    </th>
+					<td>
+						<div class="btn-group radioButtons" data-name="visFylkeKnapp">
+							<button type="button" class="btn btn-default {{ visFylkeKnapp ? 'selected' }}" value="true">
+								&nbsp; Vis &nbsp;</button>
+							<button type="button" class="btn btn-default {{ not visFylkeKnapp ? 'selected' }}" value="false">
+								&nbsp; Skjul &nbsp;</button>
+						</div>
+					</td>
+				</tr>
+			{% endif %}
+
 			{% if forside.supportMeny() %}
 				<tr>
 					<th>
 						Egendefinert ekstra-meny
 						<p class="small text-muted normal">
-							Hvis du vil ha ekstra menyelementer på siden din, kan du legge til en meny her.
-							Alle meny-elementer vil vises som en egen knapp på forsiden.
+							Hvis du vil ha ekstra menyelementer på siden din, kan du legge til en meny her. Alle meny-elementer vil vises som en egen knapp på forsiden.
 						</p>
 					</th>
 					<td>
@@ -108,7 +127,7 @@
 				</tr>
 			{% endif %}
 		</table>
-		
+
 		<button type="submit" class="btn btn-large btn-ukm btn-success">Lagre</button>
 	</form>
 </div>
