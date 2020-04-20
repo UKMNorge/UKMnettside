@@ -43,10 +43,10 @@
 							{{ (backupPageContent is defined ? backupPageContent : forside.getInfoside().getContent())|raw }}
 						</textarea>
 						{% if forside.getInfoside().getId() > 0 %}
-                            <p>
-                                <a href="?page=UKMnettside&deleteInfoSide={{forside.getInfoside().getId() }}" class="btn btn-ukm btn-xs btn-danger" onclick="return confirm('Er du sikker på at du vil slette informasjonsteksten?');">Slett informasjonstekst</a>
-                            </p>
-                        {% endif %}
+							<p>
+								<a href="?page=UKMnettside&deleteInfoSide={{forside.getInfoside().getId() }}" class="btn btn-ukm btn-xs btn-danger" onclick="return confirm('Er du sikker på at du vil slette informasjonsteksten?');">Slett informasjonstekst</a>
+							</p>
+						{% endif %}
 					</td>
 				</tr>
 			{% endif %}
@@ -78,13 +78,14 @@
 					</td>
 				</tr>
 			{% endif %}
+
 			{% if forside.supportMeny() %}
 				<tr>
 					<th>
 						Egendefinert ekstra-meny
 						<p class="small text-muted normal">
 							Hvis du vil ha ekstra menyelementer på siden din, kan du legge til en meny her.
-																																				                            Alle meny-elementer vil vises som en egen knapp på forsiden.
+																																											                            Alle meny-elementer vil vises som en egen knapp på forsiden.
 						</p>
 					</th>
 					<td>
@@ -108,37 +109,37 @@
 			{% endif %}
 		</table>
 		{#% if forside.harArrangement() %}
-			<h5>Arrangement-meny</h5>
-			<p>
-				Alle elementer vises sammen med et ikon på din forside.
-																										Her kan du velge å overstyre automatikken som viser de.
-			</p>
-			<table class="table table-striped">
-				<tr>
-					<th>
-						Påmeldte
-						<p class="small text-muted normal">
-							Automatisk: Vises så fort du har påmeldte
-						</p>
-					</th>
-					<td>
-						{% include "options.html.twig" with {id: 'pameldte', start: 'auto', options: [{id: 'true', title: 'Vis'},{id: 'false', title: 'Skjul'},{id:'auto', title:'Automatisk'}]} %}
-					</td>
-				</tr>
-
-				<tr>
-					<th>
-						Program
-						<p class="small text-muted normal">
-							Automatisk: Vises når du har minst én hendelse som er synlig i rammeprogrammet
-						</p>
-					</th>
-					<td>
-						{% include "options.html.twig" with {id: 'program', start: 'auto', options: [{id: 'true', title: 'Vis'},{id: 'false', title: 'Skjul'},{id:'auto', title:'Automatisk'}]} %}
-					</td>
-				</tr>
-			</table>
-		{% endif %#}
+					<h5>Arrangement-meny</h5>
+					<p>
+						Alle elementer vises sammen med et ikon på din forside.
+																												Her kan du velge å overstyre automatikken som viser de.
+					</p>
+					<table class="table table-striped">
+						<tr>
+							<th>
+								Påmeldte
+								<p class="small text-muted normal">
+									Automatisk: Vises så fort du har påmeldte
+								</p>
+							</th>
+							<td>
+								{% include "options.html.twig" with {id: 'pameldte', start: 'auto', options: [{id: 'true', title: 'Vis'},{id: 'false', title: 'Skjul'},{id:'auto', title:'Automatisk'}]} %}
+							</td>
+						</tr>
+		
+						<tr>
+							<th>
+								Program
+								<p class="small text-muted normal">
+									Automatisk: Vises når du har minst én hendelse som er synlig i rammeprogrammet
+								</p>
+							</th>
+							<td>
+								{% include "options.html.twig" with {id: 'program', start: 'auto', options: [{id: 'true', title: 'Vis'},{id: 'false', title: 'Skjul'},{id:'auto', title:'Automatisk'}]} %}
+							</td>
+						</tr>
+					</table>
+				{% endif %#}
 
 
 		<button type="submit" class="btn btn-large btn-ukm btn-success">Lagre</button>
