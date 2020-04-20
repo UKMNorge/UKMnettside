@@ -57,6 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Blog::deleteOption(get_current_blog_id(),'skjulFylkeKnapp');
         }
     }
+    
+    // STANDARD-TEKSTEN "HVA ER UKM"
+    if( isset($_POST['visHvaErUKM'])) {
+        if( $_POST['visHvaErUKM'] == 'false' ) {
+            Blog::setOption(get_current_blog_id(),'skjulHvaErUKM', true);
+        } else {
+            Blog::deleteOption(get_current_blog_id(),'skjulHvaErUKM');
+        }
+    }
+
 } else {
     // INFOSIDE (DELETE)
     if (isset($_GET['deleteInfoSide'])) {
@@ -91,7 +101,8 @@ UKMnettside::addViewData(
     [
         'forside' => $front,
         'menyer' => wp_get_nav_menus(),
-        'visFylkeKnapp' => !Blog::getOption(get_current_blog_id(),'skjulFylkeKnapp')
+        'visFylkeKnapp' => !Blog::getOption(get_current_blog_id(),'skjulFylkeKnapp'),
+        'visHvaErUKM' => !Blog::getOption(get_current_blog_id(),'skjulHvaErUKM')
     ]
 );
 

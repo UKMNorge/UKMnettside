@@ -51,6 +51,22 @@
 				</tr>
 			{% endif %}
 
+            {% if (forside.erKommuneSide() and forside.getFylke().erFalskt() ) or (forside.harArrangement() and arrangement.getFylke().erFalskt()) %}
+                <tr>
+					<th>
+						Hva er UKM-tekst
+					</th>
+					<td>
+						<div class="btn-group radioButtons" data-name="visHvaErUKM">
+							<button type="button" class="btn btn-default {{ visHvaErUKM ? 'selected' }}" value="true">
+								&nbsp; Vis &nbsp;</button>
+							<button type="button" class="btn btn-default {{ not visHvaErUKM ? 'selected' }}" value="false">
+								&nbsp; Skjul &nbsp;</button>
+						</div>
+					</td>
+				</tr>
+            {% endif %}
+
 			{% if forside.supportBannerSlagord() %}
 				<tr>
 					<th>
