@@ -52,8 +52,8 @@ jQuery(document).ready(function() {
                 //block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3',
                 autoresize_min_height: 100,
                 wp_autoresize_on: true,
-                plugins: 'wplink wpautoresize',
-                toolbar1: 'formatselect bold italic underline | bullist numlist | alignleft aligncenter alignright | wplink link unlink | removeformat'
+                plugins: 'link wpautoresize',
+                toolbar1: 'formatselect bold italic underline | bullist numlist | alignleft aligncenter alignright | link unlink | removeformat'
             },
             mediaButtons: true
         }
