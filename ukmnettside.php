@@ -59,8 +59,8 @@ class UKMnettside extends Modul
         add_action(
             'admin_print_styles-' . add_submenu_page(
                 'edit.php',
-                'Forsiden',
-                'Forsiden',
+                'Nettside',
+                'Nettside',
                 'edit_posts',
                 'UKMnettside',
                 ['UKMnettside', 'renderAdmin']

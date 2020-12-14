@@ -5,7 +5,13 @@
 </style>
 <div style="margin-right: 2em;">
 	<form method="POST" action="?page={{GET('page')}}">
-		<h1>Forsiden</h1>
+		<h1>Nettsiden</h1>
+		<p class="">
+			Det viktigste for nettsiden, er at du velger et forsidebilde, og skriver inn en kort informasjonstekst. 
+		</p>
+		<p>
+			Hvis du lurer på hvordan nettsiden ser ut, kan du trykke "vis nettside" i menylinjen (øverst på siden).
+		</p>
 		{% include "wp_modul.flashbag.html.twig" %}
 
 		{% if forside.harArrangement() and arrangement.getType() == 'land' %}
@@ -37,6 +43,9 @@
 				<tr>
 					<th>
 						Informasjonstekst
+						<p class="small text-muted normal">
+							Her kan du ønske velkommen, eller gi kort informasjon. Prøv å holde det så kort som mulig. Hvis teksten blir lang, legger systemet automatisk på en "les mer"-knapp.
+						</p>
 					</th>
 					<td>
 						<textarea id="informasjonstekst" name="informasjonstekst" class="wp-autoresize">
@@ -120,6 +129,7 @@
 					<th>
 						Egendefinert ekstra-meny
 						<p class="small text-muted normal">
+							<small class="label label-warning">avansert</small>
 							Hvis du vil ha ekstra menyelementer på siden din, kan du legge til en meny her. Alle meny-elementer vil vises som en egen knapp på forsiden.
 						</p>
 					</th>
@@ -144,6 +154,28 @@
 			{% endif %}
 		</table>
 
+		<h2>Nyheter</h2>
+		<p>
+			Har du en nyhet du vil dele, velger du "nyheter" i menyen til venstre. 
+		</p>
+		<p>
+			Husk at du bør legge praktisk informasjon i informasjonstekst-feltet ovenfor, da nyhetene kommer langt ned på siden når man bruker mobil.
+		</p>
+		<br>
+		<p>
+			Nyhetssaker bør brukes til å skape forventninger, vise hva som har skjedd, eller handle om en historie som deltakerne dine kan ha lyst til å dele.
+		</p>
+
+
+		<table class="table table-striped">
+
+		</table>
+
 		<button type="submit" class="btn btn-large btn-ukm btn-success">Lagre</button>
+
 	</form>
 </div>
+<script>
+	jQuery('.wp-submenu .wp-first-item').addClass('current');
+</script>
+
