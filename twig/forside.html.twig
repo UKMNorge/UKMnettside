@@ -49,7 +49,7 @@
 					</th>
 					<td>
 						<textarea id="informasjonstekst" name="informasjonstekst" class="wp-autoresize">
-							{{ (backupPageContent is defined ? backupPageContent : forside.getInfoside().getContent())|raw }}
+							{{ (backupPageContent is defined ? backupPageContent : forside.getInfoside(true).getContent())|raw }}
 						</textarea>
 						{% if forside.getInfoside().getId() > 0 %}
 							<p>
