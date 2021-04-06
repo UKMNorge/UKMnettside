@@ -118,9 +118,9 @@ class UKMnettside extends Modul
         wp_enqueue_media();
         wp_enqueue_editor();
 		
-		wp_enqueue_script('UKMnettside_script',  PLUGIN_PATH .'UKMnettside/ukmnettside.js',[ 'wp-color-picker']);
+		wp_enqueue_script('UKMnettside_script',  plugin_dir_url( __FILE__ )  . 'ukmnettside.js',[ 'wp-color-picker']);
         wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'UKMnettside_style', PLUGIN_PATH .'UKMnettside/ukmnettside.css');
+		wp_enqueue_style( 'UKMnettside_style', plugin_dir_url( __FILE__ ) .'ukmnettside.css');
 		
 		wp_enqueue_script('WPbootstrap3_js');
 		wp_enqueue_style('WPbootstrap3_css');
