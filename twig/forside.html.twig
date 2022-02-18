@@ -60,7 +60,7 @@
 				</tr>
 			{% endif %}
 
-			{# {% if forside.harArrangement() and arrangement.getType() != 'land' %}
+			{% if forside.harArrangement() and arrangement.getType() != 'land' %}
 				{% if (forside.erKommuneSide() and forside.getFylke().erFalskt() ) or (forside.harArrangement() and arrangement.getFylke().erFalskt()) %}
 					<tr>
 						<th>
@@ -76,7 +76,7 @@
 						</td>
 					</tr>
 				{% endif %}
-			{% endif %} #}
+			{% endif %}
 			
 
 			{% if forside.supportBannerSlagord() %}
