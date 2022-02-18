@@ -108,7 +108,7 @@
 			{% endif %}
 
 			{% if forside.harArrangement() and arrangement.getType() != 'land' %}
-				{# {% if forside.erKommuneSide() and forside.getFylke().erFalskt() %}
+				{% if forside.erKommuneSide() and forside.getFylke().erFalskt() %}
 					<tr>
 						<th>
 							Meny-knapp til UKM {{ forside.getFylke().getNavn() }}
@@ -126,7 +126,7 @@
 							</div>
 						</td>
 					</tr>
-				{% endif %} #}
+				{% endif %}
 			{% endif %}
 
 
