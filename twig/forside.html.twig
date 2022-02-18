@@ -3,10 +3,7 @@
 		width: 40%;
 	}
 </style>
-{{ dump(arrangement.getType()) }}
-{{ dump(forside.harArrangement()) }}
-
-{# <div style="margin-right: 2em;">
+<div style="margin-right: 2em;">
 	<form method="POST" action="?page={{GET('page')}}">
 		<h1>Nettsiden</h1>
 		<p class="">
@@ -63,7 +60,7 @@
 				</tr>
 			{% endif %}
 
-			{% if forside.harArrangement() and arrangement.getType() != 'land' %}
+			{# {% if forside.harArrangement() and arrangement.getType() != 'land' %}
 				{% if (forside.erKommuneSide() and forside.getFylke().erFalskt() ) or (forside.harArrangement() and arrangement.getFylke().erFalskt()) %}
 					<tr>
 						<th>
@@ -79,7 +76,7 @@
 						</td>
 					</tr>
 				{% endif %}
-			{% endif %}
+			{% endif %} #}
 			
 
 			{% if forside.supportBannerSlagord() %}
@@ -110,7 +107,7 @@
 				</tr>
 			{% endif %}
 
-			{% if forside.harArrangement() and arrangement.getType() != 'land' %}
+			{# {% if forside.harArrangement() and arrangement.getType() != 'land' %}
 				{% if forside.erKommuneSide() and forside.getFylke().erFalskt() %}
 					<tr>
 						<th>
@@ -130,7 +127,7 @@
 						</td>
 					</tr>
 				{% endif %}
-			{% endif %}
+			{% endif %} #}
 
 
 			{% if forside.supportMeny() %}
@@ -186,5 +183,5 @@
 </div>
 <script>
 	jQuery('.wp-submenu .wp-first-item').addClass('current');
-</script> #}
+</script>
 
