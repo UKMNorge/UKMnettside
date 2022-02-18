@@ -3,7 +3,10 @@
 		width: 40%;
 	}
 </style>
-<div style="margin-right: 2em;">
+{{ dump(arrangement.getType()) }}
+{{ dump(forside.harArrangement()) }}
+
+{# <div style="margin-right: 2em;">
 	<form method="POST" action="?page={{GET('page')}}">
 		<h1>Nettsiden</h1>
 		<p class="">
@@ -60,21 +63,24 @@
 				</tr>
 			{% endif %}
 
-            {% if (forside.erKommuneSide() and forside.getFylke().erFalskt() ) or (forside.harArrangement() and arrangement.getFylke().erFalskt()) %}
-                <tr>
-					<th>
-						Hva er UKM-tekst
-					</th>
-					<td>
-						<div class="btn-group radioButtons" data-name="visHvaErUKM">
-							<button type="button" class="btn btn-default {{ visHvaErUKM ? 'selected' }}" value="true">
-								&nbsp; Vis &nbsp;</button>
-							<button type="button" class="btn btn-default {{ not visHvaErUKM ? 'selected' }}" value="false">
-								&nbsp; Skjul &nbsp;</button>
-						</div>
-					</td>
-				</tr>
-            {% endif %}
+			{% if forside.harArrangement() and arrangement.getType() != 'land' %}
+				{% if (forside.erKommuneSide() and forside.getFylke().erFalskt() ) or (forside.harArrangement() and arrangement.getFylke().erFalskt()) %}
+					<tr>
+						<th>
+							Hva er UKM-tekst
+						</th>
+						<td>
+							<div class="btn-group radioButtons" data-name="visHvaErUKM">
+								<button type="button" class="btn btn-default {{ visHvaErUKM ? 'selected' }}" value="true">
+									&nbsp; Vis &nbsp;</button>
+								<button type="button" class="btn btn-default {{ not visHvaErUKM ? 'selected' }}" value="false">
+									&nbsp; Skjul &nbsp;</button>
+							</div>
+						</td>
+					</tr>
+				{% endif %}
+			{% endif %}
+			
 
 			{% if forside.supportBannerSlagord() %}
 				<tr>
@@ -104,25 +110,28 @@
 				</tr>
 			{% endif %}
 
-			{% if forside.erKommuneSide() and forside.getFylke().erFalskt() %}
-				<tr>
-					<th>
-                        Meny-knapp til UKM {{ forside.getFylke().getNavn() }}
-                        <p class="small text-muted normal">
-                            For kommuner i falske fylker (fylker som kun finnes i UKM-systemet)
-                            er det valgfritt å lenke til fylkessiden, da dette ikke alltid er ønskelig.
-                        </p>
-                    </th>
-					<td>
-						<div class="btn-group radioButtons" data-name="visFylkeKnapp">
-							<button type="button" class="btn btn-default {{ visFylkeKnapp ? 'selected' }}" value="true">
-								&nbsp; Vis &nbsp;</button>
-							<button type="button" class="btn btn-default {{ not visFylkeKnapp ? 'selected' }}" value="false">
-								&nbsp; Skjul &nbsp;</button>
-						</div>
-					</td>
-				</tr>
+			{% if forside.harArrangement() and arrangement.getType() != 'land' %}
+				{% if forside.erKommuneSide() and forside.getFylke().erFalskt() %}
+					<tr>
+						<th>
+							Meny-knapp til UKM {{ forside.getFylke().getNavn() }}
+							<p class="small text-muted normal">
+								For kommuner i falske fylker (fylker som kun finnes i UKM-systemet)
+								er det valgfritt å lenke til fylkessiden, da dette ikke alltid er ønskelig.
+							</p>
+						</th>
+						<td>
+							<div class="btn-group radioButtons" data-name="visFylkeKnapp">
+								<button type="button" class="btn btn-default {{ visFylkeKnapp ? 'selected' }}" value="true">
+									&nbsp; Vis &nbsp;</button>
+								<button type="button" class="btn btn-default {{ not visFylkeKnapp ? 'selected' }}" value="false">
+									&nbsp; Skjul &nbsp;</button>
+							</div>
+						</td>
+					</tr>
+				{% endif %}
 			{% endif %}
+
 
 			{% if forside.supportMeny() %}
 				<tr>
@@ -177,5 +186,5 @@
 </div>
 <script>
 	jQuery('.wp-submenu .wp-first-item').addClass('current');
-</script>
+</script> #}
 
