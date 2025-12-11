@@ -56,28 +56,28 @@ class UKMnettside extends Modul
 	public static function meny() {
 
         ## OBS: UKMDesign registrerer også ett menyelement her som kaller UKMnettside::renderForside()
-        add_action(
-            'admin_print_styles-' . add_submenu_page(
-                'edit.php',
-                'Nettside',
-                'Nettside',
-                'edit_posts',
-                'UKMnettside',
-                ['UKMnettside', 'renderAdmin']
-            ),
-            ['UKMnettside', 'scripts_and_styles']
-        );
+        // add_action(
+        //     'admin_print_styles-' . add_submenu_page(
+        //         'edit.php',
+        //         'Nettside',
+        //         'Nettside',
+        //         'edit_posts',
+        //         'UKMnettside',
+        //         ['UKMnettside', 'renderAdmin']
+        //     ),
+        //     ['UKMnettside', 'scripts_and_styles']
+        // );
         
-        if( in_array( get_option('site_type'), ['arrangement'] ) ) {
-            // Meny
-            $page_meny = add_submenu_page(
-                'edit.php',
-                'Meny',
-                'Meny',
-                'edit_posts',
-                'nav-menus.php'
-            );
-        }
+        // if( in_array( get_option('site_type'), ['arrangement'] ) ) {
+        //     // Meny
+        //     $page_meny = add_submenu_page(
+        //         'edit.php',
+        //         'Meny',
+        //         'Meny',
+        //         'edit_posts',
+        //         'nav-menus.php'
+        //     );
+        // }
         
 		foreach( ['meny','info','bilde'] as $key ) {
 			add_action( 
